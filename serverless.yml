@@ -1,0 +1,25 @@
+service:
+  name: hello-world
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-2
+  apiGateway:
+    minimumCompressionSize: 1024 # Enable gzip compression for responses > 1 KB
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+
+functions:
+  hello:
+    handler: lib/handler.hello
+    events:
+      - http:
+          method: get
+          path: hello
+      # - schedule: rate(5 minutes)
